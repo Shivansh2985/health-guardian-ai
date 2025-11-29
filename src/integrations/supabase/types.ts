@@ -14,7 +14,188 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      achievements: {
+        Row: {
+          achievement_type: string
+          created_at: string | null
+          description: string
+          id: string
+          points_earned: number
+          user_id: string
+        }
+        Insert: {
+          achievement_type: string
+          created_at?: string | null
+          description: string
+          id?: string
+          points_earned: number
+          user_id: string
+        }
+        Update: {
+          achievement_type?: string
+          created_at?: string | null
+          description?: string
+          id?: string
+          points_earned?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      badges: {
+        Row: {
+          category: string
+          created_at: string | null
+          description: string
+          icon: string
+          id: string
+          name: string
+          points_required: number
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          description: string
+          icon: string
+          id?: string
+          name: string
+          points_required: number
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          description?: string
+          icon?: string
+          id?: string
+          name?: string
+          points_required?: number
+        }
+        Relationships: []
+      }
+      health_data: {
+        Row: {
+          data_type: string
+          id: string
+          metrics: Json
+          recorded_at: string | null
+          user_id: string
+        }
+        Insert: {
+          data_type: string
+          id?: string
+          metrics: Json
+          recorded_at?: string | null
+          user_id: string
+        }
+        Update: {
+          data_type?: string
+          id?: string
+          metrics?: Json
+          recorded_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      health_reports: {
+        Row: {
+          created_at: string | null
+          full_report: string
+          id: string
+          metrics: Json | null
+          recommendations: string[] | null
+          report_type: string
+          risk_level: string | null
+          summary: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          full_report: string
+          id?: string
+          metrics?: Json | null
+          recommendations?: string[] | null
+          report_type: string
+          risk_level?: string | null
+          summary?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          full_report?: string
+          id?: string
+          metrics?: Json | null
+          recommendations?: string[] | null
+          report_type?: string
+          risk_level?: string | null
+          summary?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          email: string
+          full_name: string | null
+          id: string
+          level: number | null
+          total_points: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email: string
+          full_name?: string | null
+          id: string
+          level?: number | null
+          total_points?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          level?: number | null
+          total_points?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_badges: {
+        Row: {
+          badge_id: string
+          earned_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          badge_id: string
+          earned_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          badge_id?: string
+          earned_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_id_fkey"
+            columns: ["badge_id"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

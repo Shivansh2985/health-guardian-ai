@@ -1,20 +1,10 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
 import { Activity, Brain, Heart, MessageSquare, TrendingUp, Users, Zap, Shield, Clock, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const navigate = useNavigate();
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoginOpen(false);
-    navigate('/dashboard');
-  };
 
   const features = [
     {
@@ -92,7 +82,7 @@ const Landing = () => {
             </span>
           </motion.div>
           <Button
-            onClick={() => setIsLoginOpen(true)}
+            onClick={() => navigate('/auth')}
             className="gradient-primary shadow-glow hover:shadow-large transition-all duration-300"
           >
             Sign In
@@ -130,7 +120,7 @@ const Landing = () => {
             <div className="flex flex-wrap gap-4">
               <Button
                 size="lg"
-                onClick={() => setIsLoginOpen(true)}
+                onClick={() => navigate('/auth')}
                 className="gradient-hero shadow-glow hover:shadow-large transition-all duration-300 text-lg px-8 py-6"
               >
                 Get Started Free
@@ -333,7 +323,7 @@ const Landing = () => {
             </p>
             <Button
               size="lg"
-              onClick={() => setIsLoginOpen(true)}
+              onClick={() => navigate('/auth')}
               className="bg-white text-primary hover:bg-white/90 shadow-large text-lg px-8 py-6"
             >
               Start Your Free Trial
@@ -350,45 +340,6 @@ const Landing = () => {
           <p className="text-sm">Empowering healthier lives through AI innovation</p>
         </div>
       </footer>
-
-      {/* Login Dialog */}
-      <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl">Welcome Back</DialogTitle>
-            <DialogDescription>
-              Sign in to access your health dashboard
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleLogin} className="space-y-4 mt-4">
-            <div>
-              <Input
-                type="email"
-                placeholder="Email"
-                className="h-12"
-                defaultValue="demo@healthai.com"
-              />
-            </div>
-            <div>
-              <Input
-                type="password"
-                placeholder="Password"
-                className="h-12"
-                defaultValue="password"
-              />
-            </div>
-            <Button
-              type="submit"
-              className="w-full h-12 gradient-primary shadow-glow"
-            >
-              Sign In
-            </Button>
-            <p className="text-sm text-center text-muted-foreground">
-              Demo credentials pre-filled. Just click Sign In!
-            </p>
-          </form>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

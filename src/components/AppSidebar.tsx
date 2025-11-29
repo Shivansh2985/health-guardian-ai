@@ -1,6 +1,9 @@
-import { Activity, Brain, Heart, Home, MessageSquare, Utensils, Dumbbell, Database } from 'lucide-react';
+import { Activity, Brain, Heart, Home, MessageSquare, Utensils, Dumbbell, Database, LogOut, User } from 'lucide-react';
 import { NavLink } from '@/components/NavLink';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   Sidebar,
   SidebarContent,
@@ -25,6 +28,7 @@ const menuItems = [
 
 export function AppSidebar() {
   const { state } = useSidebar();
+  const { user, signOut } = useAuth();
   const location = useLocation();
   const collapsed = state === 'collapsed';
 
@@ -72,6 +76,43 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      
+      {/* User Profile Section */}
+      <div className="border-t p-4 mt-auto">
+        {!collapsed ? (
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10">
+                <AvatarFallback className="bg-primary text-primary-foreground">
+                  {user?.email?.[0].toUpperCase() || 'U'}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1 overflow-hidden">
+                <div className="font-medium text-sm truncate">{user?.email}</div>
+                <div className="text-xs text-muted-foreground">Health Guardian</div>
+              </div>
+            </div>
+            <Button
+              onClick={signOut}
+              variant="outline"
+              className="w-full"
+              size="sm"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Sign Out
+            </Button>
+          </div>
+        ) : (
+          <Button
+            onClick={signOut}
+            variant="ghost"
+            size="icon"
+            className="w-full"
+          >
+            <LogOut className="w-4 h-4" />
+          </Button>
+        )}
+      </div>
     </Sidebar>
   );
 }

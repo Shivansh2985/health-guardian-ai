@@ -2,8 +2,12 @@ import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Activity, Brain, Heart, TrendingUp, Calendar, Flame, Target, Award } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { GamificationPanel } from '@/components/GamificationPanel';
+import { ReportsHistory } from '@/components/ReportsHistory';
+import { useAuth } from '@/contexts/AuthContext';
 
 const DashboardHome = () => {
+  const { user } = useAuth();
   const healthMetrics = [
     { label: 'Heart Rate', value: '72 bpm', change: '+2%', icon: Heart, color: 'text-secondary', bgColor: 'bg-secondary/10' },
     { label: 'Steps Today', value: '8,432', change: '+12%', icon: Activity, color: 'text-primary', bgColor: 'bg-primary/10' },
@@ -54,7 +58,7 @@ const DashboardHome = () => {
       >
         <div className="absolute top-0 right-0 w-64 h-64 gradient-hero rounded-full blur-3xl opacity-20" />
         <div className="relative z-10">
-          <h2 className="text-3xl font-bold mb-2">Welcome back, Alex! 👋</h2>
+          <h2 className="text-3xl font-bold mb-2">Welcome back, {user?.email?.split('@')[0] || 'User'}! 👋</h2>
           <p className="text-muted-foreground text-lg">
             Your health score is looking great today! Keep up the excellent work.
           </p>
@@ -188,6 +192,12 @@ const DashboardHome = () => {
           </ResponsiveContainer>
         </Card>
       </motion.div>
+
+      {/* Gamification and Reports */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        <GamificationPanel />
+        <ReportsHistory />
+      </div>
 
       {/* Recent Activities */}
       <motion.div
